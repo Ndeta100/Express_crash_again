@@ -10,8 +10,15 @@ const friends=[
 app.get('/', (req,res)=>{
     res.json(friends)
 })
+app.use((req,res, next)=>{
+    const start=Date.now()
+    next()
+    const delta=Date.now()-start
+    console.log(`This is middleware ${req.method}  ${req.url}  took ${delta} ms`)
+})
+app.use(express.json())
 app.get('/message', (req,res)=>{
-    res.send('<h1>Hi there!</h1>')
+    res.send(friends)
 })
 app.get('/message/:id',(req,res)=>{
     const friendId=Number(req.params.id)
@@ -25,7 +32,17 @@ app.get('/message/:id',(req,res)=>{
     }
 })
 app.post('/message',(req,res)=>{
-    res.send('<ul>I had php lol !</ul>')
+    if(!req.body.name){
+      return  res.status(400).json({
+            message:'Resource not found'
+        })
+    }
+    const newFriend={
+        name:req.body.name,
+        id:friends.length
+    }
+    friends.push(newFriend)
+    res.json(newFriend)
 })
 
 
