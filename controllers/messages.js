@@ -11,7 +11,7 @@ function getMessage(req,res){
     const message=messages[messageId]
     if(!message){
         res.status(404).json({
-            message:'Friend does not exist'
+            message:`Friend with id ${req.params.id} not found`
         })
     }else{
         res.status(200).json({
