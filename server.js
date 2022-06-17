@@ -1,6 +1,9 @@
 const express=require('express')
 const app=express()
 const path=require('path')
+app.set('view engine', 'hbs')
+app.set('views', path.join(__dirname, 'views'))
+
 const messageRouter=require('./Routes/message')
 const friendsRouer=require('./Routes/friends')
 //Middlewares
@@ -12,6 +15,7 @@ app.use((req,res, next)=>{
 })
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
+
 //Routes for messages
 app.use('/message' ,messageRouter)
 //Route for friends
