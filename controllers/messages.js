@@ -1,9 +1,12 @@
 const messages=require('./../models/messages')
+const path=require('path')
 //getting all messages
  function getMessages(req,res){
-  res.json({
-      data:messages
-  })
+const fileDir=path.join(__dirname, '..','public','images', '123.png')
+res.sendFile(fileDir)
+//   res.json({
+//       data:messages
+//   })
 }
 //Getting a message with an id
 function getMessage(req,res){
